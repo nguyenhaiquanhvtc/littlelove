@@ -1,1 +1,152 @@
-Hello My Web
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi người tôi yêu ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 100%);
+            min-height: 100vh;
+        }
+
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .video-container iframe,
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center p-4 md:p-8">
+
+    <div class="max-w-3xl w-full animate__animated animate__fadeIn">
+        <!-- Header Section -->
+        <div class="text-center mb-8">
+            <h1 class="cursive text-5xl md:text-6xl text-pink-600 mb-2 floating">Dành cho em...</h1>
+            <p class="text-gray-600 text-lg italic">Một món quà nhỏ thay lời muốn nói ❤️</p>
+        </div>
+
+        <!-- Video Card -->
+        <div class="glass rounded-3xl p-4 md:p-6 shadow-2xl">
+            <div id="media-player" class="video-container shadow-inner bg-black">
+                <!-- Media will be injected here -->
+                <div class="flex items-center justify-center h-full text-white">
+                    <p>Đang tải video...</p>
+                </div>
+            </div>
+
+            <!-- Message Area -->
+            <div class="mt-6 text-center">
+                <p id="message" class="text-gray-700 leading-relaxed text-lg">
+                    Cảm ơn em đã luôn ở bên cạnh anh. Mong rằng video này sẽ mang lại niềm vui cho em ngày hôm nay!
+                </p>
+                <div class="mt-6 flex justify-center space-x-4">
+                    <div
+                        class="h-10 w-10 flex items-center justify-center bg-pink-100 rounded-full text-pink-500 animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            <p>Made with Love &bull; 2024</p>
+        </footer>
+    </div>
+
+    <script>
+        // Cấu hình Link Video tại đây
+        const videoUrl = "https://www.youtube.com/embed/ufDmRPXsMx0?si=0W731Bdp7fjig-pr";
+
+        function getYouTubeEmbedUrl(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+
+            if (match && match[2].length === 11) {
+                return `https://www.youtube.com/embed/${match[2]}`;
+            }
+            return null;
+        }
+
+        function initPlayer() {
+            const container = document.getElementById('media-player');
+            const youtubeEmbedUrl = getYouTubeEmbedUrl(videoUrl);
+
+            if (youtubeEmbedUrl) {
+                container.innerHTML = `
+                    <iframe 
+                        src="${youtubeEmbedUrl}" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>`;
+            } else {
+                container.innerHTML = `
+                    <video controls class="w-full h-full">
+                        <source src="${videoUrl}" type="video/mp4">
+                        Trình duyệt của bạn không hỗ trợ tag video.
+                    </video>`;
+            }
+        }
+
+        // Khởi tạo khi trang load
+        window.addEventListener('DOMContentLoaded', initPlayer);
+    </script>
+</body>
+
+</html>
